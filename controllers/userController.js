@@ -1,6 +1,6 @@
 const { getConnection, sql } = require('../config/database');
 
-// Create a new user
+
 const createUser = async (req, res) => {
   try {
     const { name, email } = req.body;
@@ -32,7 +32,6 @@ const createUser = async (req, res) => {
   }
 };
 
-// Get all users
 const getAllUsers = async (req, res) => {
   try {
     const pool = await getConnection();
@@ -49,7 +48,7 @@ const getAllUsers = async (req, res) => {
   }
 };
 
-// Get user by ID
+
 const getUserById = async (req, res) => {
   try {
     const { id } = req.params;
@@ -70,7 +69,7 @@ const getUserById = async (req, res) => {
   }
 };
 
-// Update user by ID
+
 const updateUser = async (req, res) => {
   try {
     const { id } = req.params;
@@ -81,8 +80,8 @@ const updateUser = async (req, res) => {
     }
 
     const pool = await getConnection();
-    
-    // Check if user exists
+
+  
     const checkUser = await pool.request()
       .input('id', sql.Int, id)
       .query('SELECT * FROM Users WHERE id = @id');
@@ -91,7 +90,7 @@ const updateUser = async (req, res) => {
       return res.status(404).json({ error: 'User not found' });
     }
 
-    // Build update query dynamically
+    
     let updateFields = [];
     const request = pool.request().input('id', sql.Int, id);
 
@@ -124,14 +123,14 @@ const updateUser = async (req, res) => {
   }
 };
 
-// Delete user by ID
+
 const deleteUser = async (req, res) => {
   try {
     const { id } = req.params;
 
     const pool = await getConnection();
     
-    // Check if user exists
+    
     const checkUser = await pool.request()
       .input('id', sql.Int, id)
       .query('SELECT * FROM Users WHERE id = @id');
